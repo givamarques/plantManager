@@ -1,36 +1,30 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, TouchableOpacityProps } from 'react-native';
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
-interface ButtonProps extends TouchableOpacityProps{
-  title: string;
-}
-export function Button({title, ...rest} : ButtonProps){
+
+export function Button(){
   return(
-   
+<TouchableOpacity style={styles.container}>
+  <Text style={styles.text}>
+    Confirmar
+  </Text>
+</TouchableOpacity>
   )
-}
-
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  
-  },
-  
-  button: {
     backgroundColor: colors.green,
+    height: 56,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 16,
-    marginBottom: 10,
-    height: 56,
-    paddingHorizontal: 10,
   },
-  buttonText: {
+  text: {
+    fontSize: 16,
     color: colors.white,
-    fontSize: 22,
+    fontFamily: fonts.heading
   },
-  });
+});
