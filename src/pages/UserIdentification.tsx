@@ -1,22 +1,41 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native';
+import React, {useState} from 'react';
+import { SafeAreaView, StyleSheet, Text, View, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import {Button} from '../components/button';
 
 export function UserIdentification(){
+  const [isFocused, setIsFocused] = useState(false);
+
+  function handleInputBlur(){
+    setIsFocused(false);
+  }
+  function handleInputFocus(){
+    setIsFocused(true)
+  }
+
   return(
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
       <View style={styles.content}>
         <View style={styles.form}>
+          <View style={styles.header}>
         <Text style={styles.emoji}>
             😁
           </Text>
           <Text style={styles.title}>Como podemos {'\n'}chamar você?</Text>
-            <TextInput style={styles.input}/>
+          </View>
+          
+          <TextInput style={[styles.input, 
+          isFocused && {borderColor: colors.green}]} 
+
+          placeholder="Digite seu nome"
+          onBlur={handleInputBlur}
+          onFocus={handleInputFocus}/>
+            <View style={styles.footer}><Button /></View>
         </View>
-        <Button />
-      </View>
+       </View>
+       </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
@@ -37,6 +56,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 54,
     alignItems: 'center',
+    width: '100%',
+  },
+  header:{
+    alignItems:'center'
   },
   emoji:{
     fontSize: 44,
@@ -58,5 +81,10 @@ const styles = StyleSheet.create({
     color: colors.heading,
     fontFamily: fonts.heading,
     marginTop: 20,
+  },
+  footer:{
+    width: '100%',
+    marginTop: 40,
+    paddingHorizontal: 20,
   },
 })
